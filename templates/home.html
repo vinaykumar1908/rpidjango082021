@@ -7,13 +7,60 @@ Home
 
 
 {%block content%}
+
+
+
 <h4 style="font-family: 'Times New Roman'; font-style: italic;">Time: {{time}}</h4>
 <div class="container-fluid">
-<div class="row" style="background-color: teal;">
+<div class="row" style="background-color: teal;" style="overflow-x:auto;">
     <div class="">
-    <h3  class="text-dark">Modules In Sickline</h3>
+    <h3  class="text-dark">Stats</h3>
     </div>
     <div class="overflow-auto w-80 h-10" style="background-color:DodgerBlue;" >
+        <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th>No. of examinations this month</th>
+                <th>No. of examinations previous day</th>
+                <th>No. of examinations Today</th>
+                <th>No of Item Critical </th>
+                <th>ROH fitment modules this month</th>
+                 <th>Sickline fitment this month</th>               
+                <th>Cases related to EM Pad this month</th>
+                <th>Cases related to Adopter this month</th>
+
+
+            </tr>
+        </thead>
+        
+        <tbody>
+        
+            <tr class='danger'>
+                <td class='text-primary'>{{obj4.count}}</td>
+                <td class='text-primary'>{{objx.count}}</td>
+                <td class='text-primary'>{{objx1.count}}</td>
+                <td class='text-primary'>{{obj.count}}</td>
+                <td class='text-primary'><a href="{%url 'ROH_Modules_FIT' %}">{{obj7.count}}</td>
+                <td class='text-primary'><a href="{%url 'Sickline_Modules_FIT' %}">{{obj8.count}}</td>
+
+                <td class='text-primary'><a href="{%url 'EMPAD' %}">{{obj5.count}} Wagon/s</td>
+                <td class='text-primary'><a href="{%url 'Adopter' %}">{{obj6.count}} Wagon/s</td>
+
+                
+            </tr>
+        
+       
+        </tbody>
+        
+        </table>
+    </div >
+
+</div>
+<div class="row" style="background-color: teal; overflow-x:auto;">
+    <div class="">
+    <h3  class="text-dark">Modules for Sickline : {{obj2.count}}</h3>
+    </div>
+    <div class="overflow-auto w-80 h-10" style="background-color:DodgerBlue;position:relative; overflow:scroll" >
         <table class="table table-bordered ">
         <thead>
             <tr>
@@ -65,9 +112,9 @@ Home
 </div>
 <div class="row" style="background-color: teal;">
     <div class="">
-    <h3  class="text-dark">Modules In ROH 1</h3>
+    <h3  class="text-dark">Modules for ROH 1 : {{obj3.count}}</h3>
     </div>
-    <div class="overflow-auto w-80 h-10" style="background-color:DodgerBlue;" >
+    <div class="overflow-auto w-80 h-10" style="background-color:DodgerBlue;position:relative; overflow:scroll" >
         <table class="table table-bordered ">
         <thead>
             <tr>
@@ -87,7 +134,7 @@ Home
         
         <tbody>
         {%for object3 in obj3  %}
-       
+        {%if object3.ModulePresentPosition != "TKD_ROH2"%}
             <tr class='danger'>
                 <td class='text-primary'>{{forloop.counter}}</td>
                 <td class='text-primary'>{{object3.Date}}</td>
@@ -109,7 +156,7 @@ Home
                 {%endif%}
                 <td class='text-primary'>{{object3.author}}</td>
             </tr>
-        
+        {%endif%}
         {%endfor%}
         </tbody>
         
@@ -119,9 +166,9 @@ Home
 </div>
 <div class="row" style="background-color: teal;">
     <div class="">
-    <h3  class="text-dark">Modules In ROH 2</h3>
+    <h3  class="text-dark">Modules for ROH 2 : {{obj3.count}}</h3>
     </div>
-    <div class="overflow-auto w-80 h-10" style="background-color:DodgerBlue;" >
+    <div class="overflow-auto w-80 h-10" style="background-color:DodgerBlue;position:relative; overflow:scroll" >
         <table class="table table-bordered ">
         <thead>
             <tr>
@@ -140,8 +187,8 @@ Home
         </thead>
         
         <tbody>
-        {%for object1 in ROH2  %}
-        
+        {%for object1 in obj3  %}
+        {%if object1.ModulePresentPosition != "TKD_ROH1"%}
             <tr class='danger'>
                 <td class='text-primary'>{{forloop.counter}}</td>
                 <td class='text-primary'>{{object1.Date}}</td>
@@ -163,7 +210,7 @@ Home
                 {%endif%}
                 <td class='text-primary'>{{object1.author}}</td>
             </tr>
-        
+        {%endif%}
         {%endfor%}
         </tbody>
         
@@ -171,51 +218,12 @@ Home
     </div >
 
 </div>
-<div class="row" style="background-color: teal;">
-    <div class="">
-    <h3  class="text-dark">Stats</h3>
-    </div>
-    <div class="overflow-auto w-80 h-10" style="background-color:DodgerBlue;" >
-        <table class="table table-bordered ">
-        <thead>
-            <tr>
-                <th>No. of examinations this month</th>
-                <th>No of Item Critical </th>
-                <th>ROH fitment modules this month</th>
-                 <th>Sickline fitment this month</th>               
-                <th>Cases related to EM Pad this month</th>
-                <th>Cases related to Adopter this month</th>
 
-
-            </tr>
-        </thead>
-        
-        <tbody>
-        
-            <tr class='danger'>
-                <td class='text-primary'>{{obj4.count}}</td>
-                <td class='text-primary'>{{obj.count}}</td>
-                <td class='text-primary'><a href="{%url 'ROH_Modules_FIT' %}">{{obj7.count}}</td>
-                <td class='text-primary'><a href="{%url 'Sickline_Modules_FIT' %}">{{obj8.count}}</td>
-
-                <td class='text-primary'><a href="{%url 'EMPAD' %}">{{obj5.count}} Wagon/s</td>
-                <td class='text-primary'><a href="{%url 'Adopter' %}">{{obj6.count}} Wagon/s</td>
-
-                
-            </tr>
-        
-       
-        </tbody>
-        
-        </table>
-    </div >
-
-</div>
 <div class="row" style="background-color: teal;">
     <div class="">
     <h3  class="text-dark">Critical Items</h3>
     </div>
-    <div class="overflow-auto w-80 h-10" style="background-color:DodgerBlue; " >
+    <div class="overflow-auto w-80 h-10" style="background-color:DodgerBlue;position:relative; overflow:scroll" >
         <table class="table table-bordered ">
         <thead>
             <tr>

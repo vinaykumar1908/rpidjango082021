@@ -44,6 +44,16 @@ Sidings
             </script> 
     <input type="submit" value="GO" style="background-color: lightcoral; color:black" />
     </form>
+    <form method="POST" action="{%url 'WagonDetailLink'%}">
+    {% csrf_token %}
+    <input type="text",class="form-control form-group", id="WagonNumber" name="WagonNumber"  style="background-color: white; color:black" placeholder="Search By Wagon" aria-label="Search By Wagon">
+            <script>
+            $( "#WagonNumber" ).autocomplete({
+              source: '{%url 'WagonNumber'%}'
+                });
+            </script> 
+    <input type="submit" value="GO" style="background-color: lightcoral; color:black" />
+    </form>
     <form method="POST" action="{%url 'DateDetailLink'%}">
     {% csrf_token %}
     <p>Filter by Date: </p>

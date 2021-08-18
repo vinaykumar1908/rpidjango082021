@@ -50,36 +50,46 @@ def homeView(request):
 
     qs1 = HM.p.filterCriticalFun(request)
     qs1 = qs1.order_by('Stock')
-    rs = ZM.ModuleRecieved.objects.filter(Q(ModulePresentPosition__iendswith="TKD_Sickline") & Q(ModuleDVS=True) & Q(ModuleMadeFit=False))
-    rs1 = ZM.ModuleRecieved.objects.filter(Q(ModulePresentPosition__iendswith="TKD_ROH1") & Q(ModuleDVR=True) & Q(ModuleMadeFit=False))
-    ROH2 = ZM.ModuleRecieved.objects.filter(Q(ModulePresentPosition__iendswith="TKD_ROH2") & Q(ModuleDVR=True) & Q(ModuleMadeFit=False))
+    j = timezone.now()
+    t = ZM.ModuleRecieved.objects.filter(ModuleRecieveDate__month=(j.month))
+    rs = t.filter(Q(ModuleDVS=True) & Q(ModuleMadeFit=False)).order_by("-ModuleRecieveDate")
+    rs1 = t.filter(Q(ModuleDVR=True) & Q(ModuleMadeFit=False)).order_by("-ModuleRecieveDate")
+    
     print('rs')
     print(rs)
     print('rs1')
-    print(rs1)
+    
     print('rs2')
-    print(ROH2)
+    
+    print()
     qs2 = timezone.now()
     a = ZM.ModuleRecieved.objects.filter(ModuleRecieveDate__month=(qs2.month))
-    k = a.filter(Q(Wagon1Defect__icontains="em pad") | (Q(Wagon2Defect__icontains="em pad")) | (Q(Wagon3Defect__icontains="em pad")) | (Q(Wagon4Defect__icontains="em pad")) | (Q(Wagon5Defect__icontains="em pad"))).filter(ModuleRecieveDate__month=(qs2.month))
+    prevDay = ZM.ModuleRecieved.objects.filter(ModuleRecieveDate__day=(qs2.day - 1))
+    Today = ZM.ModuleRecieved.objects.filter(ModuleRecieveDate__day=(qs2.day))
+    k = a.filter(Q(Wagon1Defect__icontains="em pad") | Q(Wagon1Defect__icontains="empad") | (Q(Wagon2Defect__icontains="em pad")) | Q(Wagon2Defect__icontains="empad") | (Q(Wagon3Defect__icontains="em pad")) | Q(Wagon3Defect__icontains="empad") | (Q(Wagon4Defect__icontains="em pad")) | Q(Wagon4Defect__icontains="empad") | (Q(Wagon5Defect__icontains="em pad") | Q(Wagon5Defect__icontains="empad"))).exclude(Q(ModulePresentPosition__icontains='TKD_ROH1') | Q(ModulePresentPosition__icontains='TKD_ROH2'))
     l = a.filter(Q(Wagon1Defect__icontains="adopter") | (Q(Wagon2Defect__icontains="adopter")) | (Q(Wagon3Defect__icontains="adopter")) | (Q(Wagon4Defect__icontains="adopter")) | (Q(Wagon5Defect__icontains="adopter"))).filter(ModuleRecieveDate__month=(qs2.month))
     m = a.filter(Q(ModuleMadeFit=True) & Q(ModuleDVR=True))
     n = a.filter(Q(ModuleMadeFit=True) & Q(ModuleDVS=True))
     o = a.filter(Q(ModuleDVR=True) & Q(ModuleRecieveDate__month=(qs2.month)))
+    print('k')
     print(k)
+    print('k.count')
+    print(k.count())
     print(l)
 
     context = {
         'obj': qs1,
         'obj2': rs,
         'obj3': rs1,
-        'ROH2': ROH2,
+        
         'obj4': a,
         'obj5': k,
         'obj6': l,
         'obj7': m,
         'obj8': n,
         'time': qs2,
+        'objx': prevDay,
+        'objx1': Today,
 
 
     }

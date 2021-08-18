@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+
 # Create your models here.
 class registerWheelRecievedJudw(models.Model):
     Date = models.DateField(blank=True)
@@ -45,3 +46,4 @@ class registerGaugeCalibration(models.Model):
         return self.Description
     def get_absolute_url(self):
         return reverse('GC')
+

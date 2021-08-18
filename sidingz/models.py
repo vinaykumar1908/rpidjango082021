@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from twilio.rest import Client
 # Create your models here.
 
 class ModuleRecieved(models.Model):
@@ -68,11 +68,11 @@ class ModuleRecieved(models.Model):
         ("SELECTLINE", "Please Select Examination Line"),
         ("NH1", "NH1"),
         ("NH2", "NH2"),
-        ("NH3", "NH3"),
         ("NH4", "NH4"),
         ("NH5", "NH5"),
         ("NH6", "NH6"),
         ("NH7", "NH7"),
+        ("NH8", "NH8"),
     )
     MODULE_PRESENT_POSITION = (
         ("TKD_ROH1", "TKD ROH 1"),
@@ -134,13 +134,29 @@ class ModuleRecieved(models.Model):
         max_length=13, choices=MODULE_PRESENT_POSITION, default='YARD', null=False)
     ModuleMadeFit = models.BooleanField(default=False, blank=True)
     ModuleMadeFitDateTime = models.DateTimeField(null=True, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='sid')
     ROHFile = models.FileField(upload_to='ROH/%Y/%m/%d/', blank=True, null=True)
 
     def __str__(self):
         return str(self.ModuleName)
     def get_absolute_url(self):
         return reverse('Modules_detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        account_sid = "AC7df1d3a6422280115a2a3fa0c0139b30"
+        # Your Auth Token from twilio.com/console
+        auth_token = "6bc2c95d10be56efa219fff586689c07"
+
+        client = Client(account_sid, auth_token)
+
+        message = client.messages.create(
+            to="+919717631424",
+            from_="+15674323089",
+            body=f'Module Name: {self.ModuleName}; Type: {self.Wagon1Type}; DVS: {self.ModuleDVS}; DVR: {self.ModuleDVR}; SSE: {self.author}')
+
+        print(message.sid)
+        print("Module Saved !")
+        return super().save(*args, **kwargs)
     
 
 

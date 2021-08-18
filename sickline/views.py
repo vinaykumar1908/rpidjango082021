@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.db.models import Q
 
+
 # Create your views here.
 
 
@@ -43,7 +44,8 @@ def SicklineModulesFIT(request):
 @login_required
 def EMPAD(request):
     qs2 = timezone.now()
-    k = sm.ModuleRecieved.objects.all().filter(Q(Wagon1Defect__icontains="em pad") | (Q(Wagon2Defect__icontains="em pad")) | (Q(Wagon3Defect__icontains="em pad"))| (Q(Wagon4Defect__icontains="em pad")) | (Q(Wagon5Defect__icontains="em pad"))).filter(ModuleRecieveDate__month=(qs2.month)).exclude(ModuleDVR=True)
+    a = sm.ModuleRecieved.objects.filter(ModuleRecieveDate__month=(qs2.month))
+    k = a.filter(Q(Wagon1Defect__icontains="em pad") | Q(Wagon1Defect__icontains="empad") | (Q(Wagon2Defect__icontains="em pad")) | Q(Wagon2Defect__icontains="empad") | (Q(Wagon3Defect__icontains="em pad")) | Q(Wagon3Defect__icontains="empad") | (Q(Wagon4Defect__icontains="em pad")) | Q(Wagon4Defect__icontains="empad") | (Q(Wagon5Defect__icontains="em pad") | Q(Wagon5Defect__icontains="empad"))).exclude(Q(ModulePresentPosition__icontains='TKD_ROH1') | Q(ModulePresentPosition__icontains='TKD_ROH2'))
 
     print(k)
     k = k.order_by('-Date')
@@ -57,7 +59,7 @@ def EMPAD(request):
 @login_required
 def Adopter(request):
     qs2 = timezone.now()
-    k = sm.ModuleRecieved.objects.all().filter(Q(Wagon1Defect__icontains="adopter") | (Q(Wagon2Defect__icontains="adopter")) | (Q(Wagon3Defect__icontains="adopter"))| (Q(Wagon4Defect__icontains="adopter")) | (Q(Wagon5Defect__icontains="adopter"))).filter(ModuleRecieveDate__month=(qs2.month)).exclude(ModuleDVR=True)
+    k = sm.ModuleRecieved.objects.all().filter(Q(Wagon1Defect__icontains="adopter") | (Q(Wagon2Defect__icontains="adopter")) | (Q(Wagon3Defect__icontains="adopter")) | (Q(Wagon4Defect__icontains="adopter")) | (Q(Wagon5Defect__icontains="adopter"))).filter(ModuleRecieveDate__month=(qs2.month)).exclude(Q(ModuleDVR=True) | Q(ModulePresentPosition__icontains='TKD_ROH1') | Q(ModulePresentPosition__icontains='TKD_ROH2'))
 
     print(k)
     k = k.order_by('-Date')

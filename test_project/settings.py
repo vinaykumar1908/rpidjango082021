@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'mnp.apps.MnpConfig',
     'contracts.apps.ContractsConfig',
+    'bpc.apps.BpcConfig',
 ]
 
 MIDDLEWARE = [

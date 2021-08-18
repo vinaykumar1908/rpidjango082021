@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.SidingHomePageView.as_view(), name='sidings_home' ),
     path('ICD_Okhla/', views.SidingICDOkhlaHomePageView.as_view(), name='siding_ICD_Okhla' ),
-    path('sidingModuleRecieved/', views.SidingModuleRecievedPageView.as_view(), name='siding_Modules_Recieved'),
+    path('sidingModuleRecieved/', views.SidingModuleRecievedPageView, name='siding_Modules_Recieved'),
 #    path('ACTL/', views.SidingACTLHomePageView.as_view(), name='siding_ACTL' ),
 #    path('HTPP/', views.SidingHTPPHomePageView.as_view(), name='siding_HTPP' ),
     path('sidingModuleList/', views.SidingModuleListPageView.as_view(), name='siding_Modules_List'),
@@ -17,6 +17,8 @@ urlpatterns = [
     path('moduleName', views.moduleName, name='moduleName'),
     path('ModuleQuickLink', views.ModuleDetailLink, name='ModuleDetailLink'),
     path('RakeQuickLink', views.RakeDetailLink, name='RakeDetailLink'),
+    path('WagonQuickLink', views.WagonDetailLink, name='WagonDetailLink'),
+
     path('DateQuickLink', views.DateDetailLink, name='DateDetailLink'),
     path('DateQuickLinkGZBMUZ', views.DateDetailGZBMUZLink, name='DateDetailGZBMUZLink'),
 
@@ -34,6 +36,7 @@ urlpatterns = [
     path('DateQuickLinkYard', views.DateDetailYardLink, name='DateDetailYardLink'),
 
     path('RakeNumber', views.RakeNumber, name='RakeNumber'),
+    path('WagonNumber', views.WagonNumber, name='WagonNumber'),
     path('sidingModuleList/<int:pk>/delete/', views.SidingModuleDeleteView.as_view(), name='Module_delete'),
     path('TKDICDModuleList/', views.TKDICDModuleListPageView, name='TKDICD_Modules_List'),
     path('TKDICDModuleDVSList/', views.TKDICDModuleListDVSPageView, name='TKDICD_Modules_List_DVS'),
