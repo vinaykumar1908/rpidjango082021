@@ -143,15 +143,15 @@ class ModuleRecieved(models.Model):
         return reverse('Modules_detail', kwargs={'pk': self.pk})
 
     def save(self, *args, **kwargs):
-        account_sid = "AC7df1d3a6422280115a2a3fa0c0139b30"
+        account_sid = "AC79222237cf68f0144f588d681e56907d"
         # Your Auth Token from twilio.com/console
-        auth_token = "6bc2c95d10be56efa219fff586689c07"
+        auth_token = "8615e3c2624434b67a2da8a5a56d3502"
 
         client = Client(account_sid, auth_token)
 
         message = client.messages.create(
             to="+919717631424",
-            from_="+15674323089",
+            from_="+15393027840",
             body=f'Module Name: {self.ModuleName}; Type: {self.Wagon1Type}; DVS: {self.ModuleDVS}; DVR: {self.ModuleDVR}; SSE: {self.author}')
 
         print(message.sid)
