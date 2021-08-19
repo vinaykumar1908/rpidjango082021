@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from stores import models as SM
 from sidingz import models as ZM
 from django.urls import reverse_lazy
-from django.db import models
+from django.db import models as dbmodels
 from bpc import models as bm
 import math
 from datetime import date, datetime
@@ -22,7 +22,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
-from bpc.forms import ModelForm, ModuleDefectForm, ModuleRecieved, ModuleRecievedForm, MRS
+from bpc.forms import  ModuleDefectForm, ModuleRecievedForm
 
 
 class HomePageView(LoginRequiredMixin, TemplateView):
@@ -111,7 +111,7 @@ def Enter_BPC(request):
                 MMF = False
                 print("MMF")
                 print(MMF)
-            added = models.ModuleRecieved.objects.create(
+            added = bm.ModuleRecieved.objects.create(
                 RakeNumber=RakeNumber0, BPC_Number=BPC_Number,
                 ModulePresentPosition=ModulePresentPosition,
                 LineNumber=LineNumber, ModuleName=ModuleName,
@@ -150,6 +150,6 @@ def Enter_BPC(request):
 
 class Show_BPC(LoginRequiredMixin, ListView):
     model = bm.ModuleRecieved
-    template_name = 'sidings/ModulesList.html'
+    template_name = 'bpc/ModulesList.html'
     ordering = ['-Date']
     paginate_by = 50
