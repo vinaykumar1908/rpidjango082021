@@ -8,6 +8,7 @@ django = "*"
 django-crispy-forms = "*"
 pillow = "*"
 twilio = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

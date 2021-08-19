@@ -1,11 +1,11 @@
 from django.forms import ModelForm
 from .models import ModuleRecieved
-
+from sidingz.models import ModuleRecieved as MRS
 
 class ModuleRecievedForm(ModelForm):
 
     class Meta:
-        model = ModuleRecieved
+        model = MRS
         fields = ('RakeNumber', 'BPC_Number',
                   'ModulePresentPosition',
                   'LineNumber', 'ModuleName',

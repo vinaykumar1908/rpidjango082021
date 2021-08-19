@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.contrib import messages
 # Create your views here.
 from django.shortcuts import render
 from django.db.models import Q
@@ -22,7 +22,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from bpc.forms import ModelForm, ModuleDefectForm, ModuleRecieved, ModuleRecievedForm, MRS
 
 
 class HomePageView(LoginRequiredMixin, TemplateView):
